@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "943054979470",
+    "project_id": "groom-f27ca",
+    "storage_bucket": "groom-f27ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943054979470:android:ea864670a3df850f0624df",
+        "android_client_info": {
+          "package_name": "edu.student.groom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943054979470-m4hpb5h6h54tdbnc1j091ap3nbg4befu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNmoQg8ON9UBXCx6_eApczYKAqaqLTjlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943054979470-m4hpb5h6h54tdbnc1j091ap3nbg4befu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
