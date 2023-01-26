@@ -37,6 +37,8 @@ import edu.student.groom.R
 import edu.student.groom.onboarding.signup.model.Responses
 import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.ui.theme.orange
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegistrationActivity : ComponentActivity() {
 
@@ -207,14 +209,8 @@ private fun showUIPageTwo(
     var password by rememberSaveable { mutableStateOf("") }
     var confirmPassword by rememberSaveable { mutableStateOf("") }
     var mobileNumber by rememberSaveable { mutableStateOf("") }
-    val institutes:MutableState<List<Responses.Institute>> = remember {
-        mutableStateOf(emptyList())
-    }
+
     val viewModel: SignupViewModel = viewModel()
-    viewModel.getInstitutes{successResponse ->
-        val instituteList= successResponse?.institutes
-        institutes.value=instituteList.orEmpty()
-    }
 
     Column(
         modifier = Modifier
@@ -254,7 +250,7 @@ private fun showUIPageTwo(
         ) {
 
 
-            InstituteSelectionDropdown(institutes.value)
+            InstituteSelectionDropdown(viewModel.institutes.value)
 
             OutlinedTextField(
                 value = mobileNumber,
@@ -352,7 +348,7 @@ private fun showUIPageTwo(
 
 
 @Composable
-fun InstituteSelectionDropdown(instituteList:List<Responses.Institute>) {
+fun InstituteSelectionDropdown(instituteList: List<Responses.Institute>) {
     var expanded by remember { mutableStateOf(false) }
 
 

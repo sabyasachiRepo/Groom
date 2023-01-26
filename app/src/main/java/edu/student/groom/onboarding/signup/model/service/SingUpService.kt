@@ -22,6 +22,6 @@ class SingUpService {
 
     interface SignupApi {
         @GET("onboarding/institutes")
-        fun getInstitutes(): Call<Responses.InstituteResponse>
+       suspend fun getInstitutes(): Responses.InstituteResponse
     }
 }

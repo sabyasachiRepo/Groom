@@ -8,19 +8,7 @@ import retrofit2.Response
 
 class SingUpRepo(private val singUpService: SingUpService = SingUpService()) {
 
-   fun getInstitutes(successCallback: (response:Responses.InstituteResponse?)->Unit){
-         singUpService.signupApi.getInstitutes().enqueue(object: Callback<Responses.InstituteResponse>{
-             override fun onResponse(
-                 call: Call<Responses.InstituteResponse>,
-                 response: Response<Responses.InstituteResponse>
-             ) {
-                 successCallback(response.body())
-             }
-
-             override fun onFailure(call: Call<Responses.InstituteResponse>, t: Throwable) {
-                Log.d("Retrofit Error",t.message.orEmpty())
-             }
-
-         })
+   suspend fun getInstitutes(): Responses.InstituteResponse {
+         return singUpService.signupApi.getInstitutes()
     }
 }
