@@ -14,8 +14,6 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -33,17 +31,15 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import edu.student.groom.R
 import edu.student.groom.ui.theme.orange
-import edu.student.groom.util.AnnotatedClickableTextLogin
 import edu.student.groom.util.RegistrationLottieAnimation
 import edu.student.groom.util.isValidEmailAddress
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun showUIPageOne(
+fun LoginPage(
     focusManager: FocusManager,
     context: Context,
-    onLoginLinkClick: () -> Unit,
-    continueClick: (email: String, firstname: String, lastName: String) -> Unit
+    continueClick: () -> Unit
 ) {
     var emailState by rememberSaveable { mutableStateOf("") }
     var firstNameState by rememberSaveable { mutableStateOf("") }
@@ -111,7 +107,7 @@ fun showUIPageOne(
         }
 
         Text(
-            text = "Sign Up",
+            text = "Login",
             modifier = Modifier.padding(bottom = 24.dp),
             color = Color.Black,
             fontSize = 30.sp,
@@ -158,7 +154,7 @@ fun showUIPageOne(
 
         OutlinedTextField(
             value = firstNameState,
-            label = { Text(text = "First name", style = MaterialTheme.typography.subtitle1) },
+            label = { Text(text = "Password", style = MaterialTheme.typography.subtitle1) },
             onValueChange = {
                 firstNameState = it
                 validateFirstName()
@@ -169,12 +165,12 @@ fun showUIPageOne(
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Face,
-                    contentDescription = "First name icon"
+                    contentDescription = "Password"
                 )
             },
             keyboardOptions = remember {
                 KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
+                    keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Next
                 )
             },
@@ -182,50 +178,16 @@ fun showUIPageOne(
         )
         if (isFirstNameError) {
             Text(
-                text = "First name can not be empty",
+                text = "Password not be empty",
                 color = MaterialTheme.colors.error,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier.padding(start = 14.dp)
             )
         }
-        OutlinedTextField(
-            value = lastNameState,
-            label = { Text(text = "Last name", style = MaterialTheme.typography.subtitle1) },
-            onValueChange = {
-                lastNameState = it
-                validateLastName()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 5.dp),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Face,
-                    contentDescription = "emailIcon"
-                )
-            },
-            keyboardOptions = remember {
-                KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Done
-                )
-            },
-            keyboardActions = KeyboardActions(
-                onDone = { keyboardController?.hide() }
-            ),
-            isError = isLastNameError
-        )
-        if (isLastNameError) {
-            Text(
-                text = "Last name can not be empty",
-                color = MaterialTheme.colors.error,
-                style = MaterialTheme.typography.subtitle2,
-                modifier = Modifier.padding(start = 14.dp)
-            )
-        }
+       
 
         Text(
-            text = "By signing up,you're agree to our Terms and Conditions and Privacy Policy",
+            text = "By log in,you're agree to our Terms and Conditions and Privacy Policy",
             modifier = Modifier.padding(top = 24.dp),
             color = Color.Gray
         )
@@ -234,7 +196,7 @@ fun showUIPageOne(
             onClick = {
                 isFirstInteraction = false;
                 if (validatePageOne()) {
-                    continueClick(emailState, firstNameState, lastNameState)
+                    continueClick()
                 }
 
 
@@ -248,21 +210,12 @@ fun showUIPageOne(
             enabled = true
         ) {
             Text(
-                text = "Continue",
+                text = "Log In",
                 style = MaterialTheme.typography.button,
                 color = Color.White
             )
         }
-        Box(
-            Modifier
-                .align(CenterHorizontally)
-                .padding(top = 15.dp)
-        ) {
-            AnnotatedClickableTextLogin() {
-                onLoginLinkClick()
-            }
-        }
-
     }
 }
+
 

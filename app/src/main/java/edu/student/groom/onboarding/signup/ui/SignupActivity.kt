@@ -33,14 +33,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.airbnb.lottie.compose.*
 import edu.student.groom.R
+import edu.student.groom.onboarding.signup.model.Requests
 import edu.student.groom.onboarding.signup.model.Responses
 import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.ui.theme.orange
+import edu.student.groom.util.safeLet
 
 class RegistrationActivity : ComponentActivity() {
 
@@ -63,31 +67,46 @@ fun RegistrationScreens() {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
 
-            showUIPageOne(focusManager, context) { email, firstName, lastName ->
-
-                navController.navigate("page_two")
-
+            showUIPageOne(focusManager, context, {
+                navController.navigate("login_page")
+            }) { email, firstName, lastName ->
+                navController.navigate("page_two/$firstName/$lastName/$email")
             }
         }
-        composable("page_two") {
+        composable(
+            "page_two/{firstName}/{lastName}/{email}",
+            arguments = listOf(navArgument("firstName") {
+                type = NavType.StringType
+            }, navArgument("lastName") {
+                type = NavType.StringType
+            }, navArgument("email") {
+                type = NavType.StringType
+            })
+        ) {
+            val focusManager = LocalFocusManager.current
+            val firstName = it.arguments?.getString("firstName")
+            val lastName = it.arguments?.getString("lastName")
+            val email = it.arguments?.getString("email")
+            safeLet(firstName, lastName, email) { fName, lName, eMail ->
+                showUIPageTwo(
+                    focusManager,
+                    fName,
+                    lName,
+                    eMail
+                ) {
+                    navController.navigate("login_page")
+                }
+            }
+
+        }
+
+        composable("login_page") {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
-
-            showUIPageTwo(focusManager, context) { password, confirmPassword ->
-                Toast.makeText(context, password, Toast.LENGTH_LONG).show()
-                //emailState.text="fdf"
-
-            }
+            LoginPage(focusManager, context) {}
         }
     }
 }
-
-
-
-
-
-
-
 
 
 @Preview(showBackground = true)
@@ -97,7 +116,7 @@ fun DefaultPreviewPageOne() {
     val focusManager = LocalFocusManager.current
 
     GroomTheme() {
-        showUIPageOne(focusManager, context) { _, _, _ ->
+        showUIPageOne(focusManager, context,{}) { _, _, _ ->
 
         }
     }
@@ -110,7 +129,7 @@ fun DefaultPreviewPageTwo() {
     val focusManager = LocalFocusManager.current
 
     GroomTheme() {
-        showUIPageTwo(focusManager, context) { _, _ ->
+        showUIPageTwo(focusManager, "", "", "") {
         }
     }
 }
