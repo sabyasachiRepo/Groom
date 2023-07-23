@@ -11,9 +11,7 @@ import edu.student.groom.onboarding.signup.model.Requests
 import edu.student.groom.onboarding.signup.model.Responses
 import edu.student.groom.onboarding.signup.model.SingUpRepo
 import edu.student.groom.util.UiState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import retrofit2.Callback
 import retrofit2.Response
 
@@ -38,8 +36,13 @@ class SignupViewModel(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewM
 
 
     init {
+        getInstitutes()
+    }
+
+
+    private fun getInstitutes(){
         viewModelScope.launch(Dispatchers.IO) {
-            val institutesResponse = getInstitutes().institutes
+            val institutesResponse = singUpRepo.getInstitutes().institutes
             institutes.value = institutesResponse
             if (institutesResponse.isNotEmpty()) {
                 dropDownButtonName.value = "Select Institute"
@@ -47,14 +50,9 @@ class SignupViewModel(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewM
         }
     }
 
-
-    private suspend fun getInstitutes(): Responses.InstituteResponse {
-        return singUpRepo.getInstitutes()
-    }
-
     fun signUp(signUpRequest: Requests.SignUpRequest) {
         _singUpResponse.value = UiState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
+       viewModelScope.launch(Dispatchers.IO) {
             val response: Responses.BaseResponse = singUpRepo.signUp(signUpRequest)
             if (response.status=="200") {
                 withContext(Dispatchers.Main) {
@@ -66,6 +64,7 @@ class SignupViewModel(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewM
                 }
             }
         }
+
     }
 
 }
