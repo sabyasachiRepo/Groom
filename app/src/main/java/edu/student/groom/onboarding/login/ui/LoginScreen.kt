@@ -1,17 +1,15 @@
-package edu.student.groom.onboarding.signup.ui
+package edu.student.groom.onboarding.login.ui
 
 import android.content.Context
 import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -23,13 +21,9 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
-import edu.student.groom.R
 import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.RegistrationLottieAnimation
 import edu.student.groom.util.isValidEmailAddress
@@ -39,15 +33,15 @@ import edu.student.groom.util.isValidEmailAddress
 fun LoginPage(
     focusManager: FocusManager,
     context: Context,
-    continueClick: () -> Unit
+    loginClick: () -> Unit
 ) {
     var emailState by rememberSaveable { mutableStateOf("") }
-    var firstNameState by rememberSaveable { mutableStateOf("") }
-    var lastNameState by rememberSaveable { mutableStateOf("") }
+    var passwordState by rememberSaveable { mutableStateOf("") }
+
     val keyboardController = LocalSoftwareKeyboardController.current
     var isEmailError by rememberSaveable { mutableStateOf(false) }
-    var isFirstNameError by rememberSaveable { mutableStateOf(false) }
-    var isLastNameError by rememberSaveable { mutableStateOf(false) }
+    var isPasswordError by rememberSaveable { mutableStateOf(false) }
+
 
     /*
        Flag to restrict the dynamic validation logic when user starts typing works immediately
@@ -63,24 +57,18 @@ fun LoginPage(
         return !isEmailError
     }
 
-    fun validateFirstName(): Boolean {
+    fun validatePassword(): Boolean {
         if (isFirstInteraction) {
             return true
         }
-        isFirstNameError = firstNameState.isEmpty()
-        return !isFirstNameError;
+        isPasswordError = passwordState.isEmpty()
+        return !isPasswordError;
     }
 
-    fun validateLastName(): Boolean {
-        if (isFirstInteraction) {
-            return true
-        }
-        isLastNameError = lastNameState.isEmpty()
-        return !isLastNameError;
-    }
 
-    fun validatePageOne(): Boolean {
-        return validateEmail() && validateFirstName() && validateLastName()
+
+    fun validateLoginPage(): Boolean {
+        return validateEmail() && validatePassword()
     }
 
     Column(
@@ -153,32 +141,34 @@ fun LoginPage(
         }
 
         OutlinedTextField(
-            value = firstNameState,
+            value = passwordState,
             label = { Text(text = "Password", style = MaterialTheme.typography.subtitle1) },
             onValueChange = {
-                firstNameState = it
-                validateFirstName()
+                passwordState = it
+                validatePassword()
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 5.dp),
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Default.Face,
+                    imageVector = Icons.Default.Lock,
                     contentDescription = "Password"
                 )
             },
+            visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = remember {
                 KeyboardOptions(
+
                     keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Next
                 )
             },
-            isError = isFirstNameError
+            isError = isPasswordError
         )
-        if (isFirstNameError) {
+        if (isPasswordError) {
             Text(
-                text = "Password not be empty",
+                text = "Password can not be empty",
                 color = MaterialTheme.colors.error,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier.padding(start = 14.dp)
@@ -195,8 +185,8 @@ fun LoginPage(
         Button(
             onClick = {
                 isFirstInteraction = false;
-                if (validatePageOne()) {
-                    continueClick()
+                if (validateLoginPage()) {
+                    loginClick()
                 }
 
 

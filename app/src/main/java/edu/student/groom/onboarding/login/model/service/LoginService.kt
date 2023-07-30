@@ -1,6 +1,8 @@
-package edu.student.groom.onboarding.signup.model.service
+package edu.student.groom.onboarding.login.model.service
 
 import edu.student.groom.Network
+import edu.student.groom.onboarding.login.model.LoginRequest
+import edu.student.groom.onboarding.login.model.LoginResponse
 import edu.student.groom.onboarding.signup.model.Requests
 import edu.student.groom.onboarding.signup.model.Responses
 import okhttp3.OkHttpClient
@@ -13,21 +15,19 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-class SingUpService {
+class LoginService {
 
 
-    lateinit var signupApi: SignupApi
+    lateinit var signupApi: LoginApi
 
     init {
-        signupApi = Network.getInstance().retrofit.create(SignupApi::class.java)
+        signupApi = Network.getInstance().retrofit.create(LoginApi::class.java)
     }
 
-    interface SignupApi {
-        @GET("onboarding/institutes")
-        suspend fun getInstitutes(): Responses.InstituteResponse
+    interface LoginApi {
 
-        @POST("onboarding/registration")
-        suspend fun signUp(@Body singUpRequest: Requests.SignUpRequest):Responses.BaseResponse
+        @POST("onboarding/login")
+        suspend fun signUp(@Body loginRequest: LoginRequest):LoginResponse
     }
 
 
