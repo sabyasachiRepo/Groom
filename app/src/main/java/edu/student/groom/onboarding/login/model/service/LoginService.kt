@@ -18,16 +18,16 @@ import retrofit2.http.POST
 class LoginService {
 
 
-    lateinit var signupApi: LoginApi
+    lateinit var loginApi: LoginApi
 
     init {
-        signupApi = Network.getInstance().retrofit.create(LoginApi::class.java)
+        loginApi = Network.getInstance().retrofit.create(LoginApi::class.java)
     }
 
     interface LoginApi {
 
         @POST("onboarding/login")
-        suspend fun signUp(@Body loginRequest: LoginRequest):LoginResponse
+        suspend fun login(@Body loginRequest: LoginRequest):LoginResponse
     }
 
 

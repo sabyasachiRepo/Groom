@@ -73,7 +73,7 @@ fun RegistrationScreens() {
         composable("login_page") {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
-            LoginPage(focusManager, context) {
+            LoginPage(focusManager) {
 
             }
         }
@@ -101,7 +101,7 @@ fun DefaultPreviewPageTwo() {
     val focusManager = LocalFocusManager.current
 
     GroomTheme() {
-        showUIPageTwo(focusManager, "", "", "") {
+        LoginPage(focusManager) {
         }
     }
 }
