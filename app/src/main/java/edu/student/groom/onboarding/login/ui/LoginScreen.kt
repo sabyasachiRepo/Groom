@@ -40,7 +40,7 @@ import timber.log.Timber
 @Composable
 fun LoginPage(
     focusManager: FocusManager,
-    loginClick: () -> Unit
+    onLoginSuccess: () -> Unit
 ) {
     var emailState by rememberSaveable { mutableStateOf("") }
     var passwordState by rememberSaveable { mutableStateOf("") }
@@ -63,7 +63,7 @@ fun LoginPage(
                 }
                 is UiState.Success<LoginResponse> -> {
                     isInProgress = false
-                    // signUpSuccess()
+                    onLoginSuccess()
                     Timber.d("Login:", "Login success")
                 }
                 is UiState.Error -> {

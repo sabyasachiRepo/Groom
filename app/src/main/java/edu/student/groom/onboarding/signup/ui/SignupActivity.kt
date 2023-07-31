@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import edu.student.groom.home.HomeScreen
 import edu.student.groom.onboarding.login.ui.LoginPage
 import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.util.safeLet
@@ -74,8 +75,14 @@ fun RegistrationScreens() {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
             LoginPage(focusManager) {
-
+                navController.navigate("home_page")
             }
+        }
+
+        composable("home_page") {
+            val context = LocalContext.current
+            val focusManager = LocalFocusManager.current
+            HomeScreen()
         }
     }
 }
