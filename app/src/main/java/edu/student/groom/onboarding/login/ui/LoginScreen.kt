@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -222,11 +223,6 @@ fun LoginPage(
             }
 
 
-            Text(
-                text = "By login, you're agree to our Terms and Conditions and Privacy Policy",
-                modifier = Modifier.padding(top = 24.dp),
-                color = Color.Gray
-            )
 
             Button(
                 onClick = {
@@ -251,6 +247,15 @@ fun LoginPage(
                     color = Color.White
                 )
             }
+            Box(
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 30.dp)
+            ) {
+                AnnotatedClickableTextRegister() {
+                }
+            }
+
         }
         if (isInProgress) {
             GroomCircularProgressBar()

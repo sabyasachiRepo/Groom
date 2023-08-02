@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
@@ -172,6 +173,7 @@ fun AnnotatedClickableTextLogin(onLoginClick: () -> Unit) {
         withStyle(
             style = SpanStyle(
                 color = Color.Blue,
+                fontWeight = FontWeight.SemiBold
             )
         ) {
             append("Log In")
@@ -195,3 +197,97 @@ fun AnnotatedClickableTextLogin(onLoginClick: () -> Unit) {
         }
     )
 }
+
+@Composable
+fun AnnotatedClickableTextRegister(onRegisterClick: () -> Unit) {
+    val annotatedText = buildAnnotatedString {
+        //append your initial text
+        withStyle(
+            style = SpanStyle(
+                color = Color.Gray,
+            )
+        ) {
+            append("New to Groom? ")
+
+        }
+
+        //Start of the pushing annotation which you want to color and make them clickable later
+        pushStringAnnotation(
+            tag = "Register",// provide tag which will then be provided when you click the text
+            annotation = "Register"
+        )
+        //add text with your different color/style
+        withStyle(
+            style = SpanStyle(
+                color = Color.Blue,
+                fontWeight = FontWeight.SemiBold
+            )
+        ) {
+            append("Register")
+        }
+        // when pop is called it means the end of annotation with current tag
+        pop()
+    }
+
+    ClickableText(
+        text = annotatedText,
+        onClick = { offset ->
+            annotatedText.getStringAnnotations(
+                tag = "Register",// tag which you used in the buildAnnotatedString
+                start = offset,
+                end = offset
+            )[0].let { annotation ->
+                //do your stuff when it gets clicked
+                onRegisterClick()
+                Timber.d("Clicked", annotation.item)
+            }
+        }
+    )
+}
+
+
+@Composable
+fun AnnotatedClickableTextsPrivacyAndTermsAncCondition(onTermsAndConditionClick: () -> Unit,onPrivacyPolicyClick: () -> Unit) {
+    val annotatedString = buildAnnotatedString {
+        withStyle(
+            style = SpanStyle(
+                color = Color.Gray,
+            )
+        ) {
+            append("By signing up, you're agree to our ")
+
+        }
+
+        pushStringAnnotation(tag = "policy", annotation = "https://google.com/policy")
+        withStyle(style = SpanStyle( color = Color.Blue,
+            fontWeight = FontWeight.Normal)) {
+            append("privacy policy")
+        }
+        pop()
+
+        append(" and ")
+
+        pushStringAnnotation(tag = "terms", annotation = "https://google.com/terms")
+
+        withStyle(style = SpanStyle( color = Color.Blue,
+            fontWeight = FontWeight.Normal)) {
+            append("terms of use")
+        }
+
+        pop()
+    }
+
+
+    ClickableText(text = annotatedString, style = MaterialTheme.typography.body1, onClick = { offset ->
+        annotatedString.getStringAnnotations(tag = "policy", start = offset, end = offset).firstOrNull()?.let {
+                onPrivacyPolicyClick()
+        }
+
+        annotatedString.getStringAnnotations(tag = "terms", start = offset, end = offset).firstOrNull()?.let {
+            onTermsAndConditionClick()
+        }
+    })
+}
+
+
+

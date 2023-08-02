@@ -34,6 +34,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import edu.student.groom.R
 import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.AnnotatedClickableTextLogin
+import edu.student.groom.util.AnnotatedClickableTextsPrivacyAndTermsAncCondition
 import edu.student.groom.util.RegistrationLottieAnimation
 import edu.student.groom.util.isValidEmailAddress
 
@@ -72,7 +73,7 @@ fun showUIPageOne(
             return true
         }
         isFirstNameError = firstNameState.isEmpty()
-        return !isFirstNameError;
+        return !isFirstNameError
     }
 
     fun validateLastName(): Boolean {
@@ -80,7 +81,7 @@ fun showUIPageOne(
             return true
         }
         isLastNameError = lastNameState.isEmpty()
-        return !isLastNameError;
+        return !isLastNameError
     }
 
     fun validatePageOne(): Boolean {
@@ -224,15 +225,17 @@ fun showUIPageOne(
             )
         }
 
-        Text(
-            text = "By signing up,you're agree to our Terms and Conditions and Privacy Policy",
-            modifier = Modifier.padding(top = 24.dp),
-            color = Color.Gray
-        )
+        Box(
+            Modifier
+                .align(CenterHorizontally)
+                .padding(top = 24.dp)
+        ) {
+            AnnotatedClickableTextsPrivacyAndTermsAncCondition({},{})
+        }
 
         Button(
             onClick = {
-                isFirstInteraction = false;
+                isFirstInteraction = false
                 if (validatePageOne()) {
                     continueClick(emailState, firstNameState, lastNameState)
                 }
