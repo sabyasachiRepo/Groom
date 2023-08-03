@@ -75,7 +75,10 @@ fun RegistrationScreens() {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
             LoginPage(focusManager) {
-                navController.navigate("home_page")
+                navController.navigate("home_page"){
+                    navController.popBackStack()
+                    navController.popBackStack()
+                }
             }
         }
 
