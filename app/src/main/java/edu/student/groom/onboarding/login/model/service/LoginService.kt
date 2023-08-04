@@ -18,7 +18,7 @@ import retrofit2.http.POST
 class LoginService {
 
 
-    lateinit var loginApi: LoginApi
+    var loginApi: LoginApi
 
     init {
         loginApi = Network.getInstance().retrofit.create(LoginApi::class.java)

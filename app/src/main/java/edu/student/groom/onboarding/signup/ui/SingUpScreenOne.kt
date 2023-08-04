@@ -22,6 +22,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -112,7 +113,7 @@ fun showUIPageOne(
         }
 
         Text(
-            text = "Sign Up",
+            text = stringResource(R.string.sign_up),
             modifier = Modifier.padding(bottom = 24.dp),
             color = Color.Black,
             fontSize = 30.sp,
@@ -126,7 +127,7 @@ fun showUIPageOne(
             ) {
             OutlinedTextField(
                 value = emailState,
-                label = { Text(text = "Email", style = MaterialTheme.typography.subtitle1) },
+                label = { Text(text = stringResource(R.string.email), style = MaterialTheme.typography.subtitle1) },
                 onValueChange = {
                     emailState = it
                     validateEmail()
@@ -149,7 +150,7 @@ fun showUIPageOne(
             )
             if (isEmailError) {
                 Text(
-                    text = "Please provide valid email",
+                    text = stringResource(R.string.email_error_message),
                     color = MaterialTheme.colors.error,
                     style = MaterialTheme.typography.subtitle2,
                     modifier = Modifier.padding(start = 14.dp)
@@ -159,7 +160,7 @@ fun showUIPageOne(
 
         OutlinedTextField(
             value = firstNameState,
-            label = { Text(text = "First name", style = MaterialTheme.typography.subtitle1) },
+            label = { Text(text = stringResource(R.string.first_name), style = MaterialTheme.typography.subtitle1) },
             onValueChange = {
                 firstNameState = it
                 validateFirstName()
@@ -170,7 +171,7 @@ fun showUIPageOne(
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Face,
-                    contentDescription = "First name icon"
+                    contentDescription = stringResource(R.string.first_name_icon_desc)
                 )
             },
             keyboardOptions = remember {
@@ -183,7 +184,7 @@ fun showUIPageOne(
         )
         if (isFirstNameError) {
             Text(
-                text = "First name can not be empty",
+                text = stringResource(R.string.first_name_error_message),
                 color = MaterialTheme.colors.error,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier.padding(start = 14.dp)
@@ -191,7 +192,7 @@ fun showUIPageOne(
         }
         OutlinedTextField(
             value = lastNameState,
-            label = { Text(text = "Last name", style = MaterialTheme.typography.subtitle1) },
+            label = { Text(text = stringResource(R.string.last_name), style = MaterialTheme.typography.subtitle1) },
             onValueChange = {
                 lastNameState = it
                 validateLastName()
@@ -218,7 +219,7 @@ fun showUIPageOne(
         )
         if (isLastNameError) {
             Text(
-                text = "Last name can not be empty",
+                text = stringResource(R.string.last_name_error_message),
                 color = MaterialTheme.colors.error,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier.padding(start = 14.dp)
@@ -251,7 +252,7 @@ fun showUIPageOne(
             enabled = true
         ) {
             Text(
-                text = "Continue",
+                text = stringResource(R.string.continue_text),
                 style = MaterialTheme.typography.button,
                 color = Color.White
             )
