@@ -2,7 +2,6 @@ package edu.student.groom.onboarding.signup.ui
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +10,9 @@ import edu.student.groom.onboarding.signup.model.Requests
 import edu.student.groom.onboarding.signup.model.Responses
 import edu.student.groom.onboarding.signup.model.SingUpRepo
 import edu.student.groom.util.UiState
-import kotlinx.coroutines.*
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignupViewModel(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewModel() {
 
