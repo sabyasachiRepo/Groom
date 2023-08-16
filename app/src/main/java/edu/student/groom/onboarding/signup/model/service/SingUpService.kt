@@ -10,7 +10,7 @@ import retrofit2.http.POST
 class SingUpService {
 
 
-    lateinit var signupApi: SignupApi
+     var signupApi: SignupApi
 
     init {
         signupApi = Network.getInstance().retrofit.create(SignupApi::class.java)

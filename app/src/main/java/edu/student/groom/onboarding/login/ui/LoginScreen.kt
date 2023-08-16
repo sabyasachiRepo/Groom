@@ -1,6 +1,4 @@
 package edu.student.groom.onboarding.login.ui
-
-import android.content.Context
 import android.os.Build
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -16,7 +14,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
@@ -31,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.student.groom.onboarding.login.model.LoginResponse
-import edu.student.groom.onboarding.signup.ui.SignupViewModel
 import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.*
@@ -40,14 +36,12 @@ import timber.log.Timber
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginPage(
-    focusManager: FocusManager,
     onLoginSuccess: () -> Unit
 ) {
     var emailState by rememberSaveable { mutableStateOf("") }
     var passwordState by rememberSaveable { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
 
-    val keyboardController = LocalSoftwareKeyboardController.current
     var isEmailError by rememberSaveable { mutableStateOf(false) }
     var isPasswordError by rememberSaveable { mutableStateOf(false) }
     var isInProgress by rememberSaveable { mutableStateOf(false) }
@@ -267,11 +261,9 @@ fun LoginPage(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreviewLoginPage() {
-    val context = LocalContext.current
-    val focusManager = LocalFocusManager.current
 
     GroomTheme() {
-        LoginPage(focusManager) {
+        LoginPage {
         }
     }
 }

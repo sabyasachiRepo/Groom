@@ -38,7 +38,7 @@ fun RegistrationScreens() {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
 
-            showUIPageOne(focusManager, context, {
+            ShowUIPageOne(focusManager, {
                 navController.navigate("login_page")
             }) { email, firstName, lastName ->
                 navController.navigate("page_two/$firstName/$lastName/$email")
@@ -59,8 +59,7 @@ fun RegistrationScreens() {
             val lastName = it.arguments?.getString("lastName")
             val email = it.arguments?.getString("email")
             safeLet(firstName, lastName, email) { fName, lName, eMail ->
-                showUIPageTwo(
-                    focusManager,
+                ShowUIPageTwo(
                     fName,
                     lName,
                     eMail
@@ -74,7 +73,7 @@ fun RegistrationScreens() {
         composable("login_page") {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
-            LoginPage(focusManager) {
+            LoginPage {
                 navController.navigate("home_page"){
                     navController.popBackStack()
                     navController.popBackStack()
@@ -98,7 +97,7 @@ fun DefaultPreviewPageOne() {
     val focusManager = LocalFocusManager.current
 
     GroomTheme() {
-        showUIPageOne(focusManager, context,{}) { _, _, _ ->
+        ShowUIPageOne(focusManager, {}) { _, _, _ ->
 
         }
     }
@@ -111,7 +110,7 @@ fun DefaultPreviewPageTwo() {
     val focusManager = LocalFocusManager.current
 
     GroomTheme() {
-        LoginPage(focusManager) {
+        LoginPage {
         }
     }
 }

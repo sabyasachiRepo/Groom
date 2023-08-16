@@ -1,6 +1,5 @@
 package edu.student.groom.onboarding.signup.ui
 
-import android.content.Context
 import android.os.Build
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -35,9 +34,8 @@ import edu.student.groom.util.isValidEmailAddress
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun showUIPageOne(
+fun ShowUIPageOne(
     focusManager: FocusManager,
-    context: Context,
     onLoginLinkClick: () -> Unit,
     continueClick: (email: String, firstname: String, lastName: String) -> Unit
 ) {

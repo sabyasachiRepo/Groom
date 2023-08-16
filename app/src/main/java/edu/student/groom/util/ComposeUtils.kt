@@ -120,10 +120,10 @@ fun GroomInstituteSelectionDropdown(
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun RegistrationLottieAnimation(isPlaying: Boolean) {
-    var isLottiePlaying by remember {
+    val isLottiePlaying by remember {
         mutableStateOf(isPlaying)
     }
-    var animationSpeed by remember {
+    val animationSpeed by remember {
         mutableStateOf(1f)
     }
     val composition by rememberLottieComposition(
