@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.student.groom.R
 import edu.student.groom.onboarding.signup.model.Requests
 import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.*
@@ -183,7 +185,7 @@ fun ShowUIPageTwo(
                 }
                 if (isInstituteError) {
                     Text(
-                        text = "Please Select Institute",
+                        text = stringResource(R.string.please_select_institute),
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.subtitle2,
                         modifier = Modifier.padding(start = 14.dp)
@@ -193,7 +195,7 @@ fun ShowUIPageTwo(
                     value = mobileNumber,
                     label = {
                         Text(
-                            text = "Mobile Number",
+                            text = stringResource(R.string.mobile_number),
                             style = MaterialTheme.typography.subtitle1
                         )
                     },
@@ -207,7 +209,7 @@ fun ShowUIPageTwo(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Phone,
-                            contentDescription = "Phone icon"
+                            contentDescription = stringResource(R.string.phone_icon)
                         )
                     },
                     maxLines = 1,
@@ -219,7 +221,7 @@ fun ShowUIPageTwo(
                 )
                 if (isMobileNumberError) {
                     Text(
-                        text = "Please enter valid mobile number",
+                        text = stringResource(R.string.please_enter_valid_mobile_number),
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.subtitle2,
                         modifier = Modifier.padding(start = 14.dp)
@@ -238,7 +240,7 @@ fun ShowUIPageTwo(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Lock,
-                            contentDescription = "Password Icon"
+                            contentDescription = stringResource(R.string.password_icon)
                         )
                     },
                     maxLines = 1,
@@ -252,7 +254,7 @@ fun ShowUIPageTwo(
                 )
                 if (isPasswordError) {
                     Text(
-                        text = "Please set password",
+                        text = stringResource(R.string.please_set_password),
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.subtitle2,
                         modifier = Modifier.padding(start = 14.dp)
@@ -262,7 +264,7 @@ fun ShowUIPageTwo(
                     value = confirmPassword,
                     label = {
                         Text(
-                            text = "Confirm Password",
+                            text = stringResource(R.string.confirm_password),
                             style = MaterialTheme.typography.subtitle1
                         )
                     },
@@ -274,7 +276,7 @@ fun ShowUIPageTwo(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Lock,
-                            contentDescription = "Confirm Password Icon"
+                            contentDescription = stringResource(R.string.confirm_password_icon)
                         )
                     },
                     maxLines = 1,
@@ -290,7 +292,7 @@ fun ShowUIPageTwo(
 
                 if (isConfirmPasswordError) {
                     Text(
-                        text = "Password and Confirm Password are not same",
+                        text = stringResource(R.string.password_and_confirm_password_are_not_same),
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.subtitle2,
                         modifier = Modifier.padding(start = 14.dp)
@@ -298,7 +300,7 @@ fun ShowUIPageTwo(
                 }
 
                 Text(
-                    text = "By signing up,you're agree to our Terms and Conditions and Privacy Policy",
+                    text = stringResource(R.string.terms_and_conditions_and_privacy_policy),
                     modifier = Modifier.padding(top = 24.dp),
                     color = Color.Gray
                 )
