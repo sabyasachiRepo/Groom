@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.student.groom.onboarding.login.model.LoginResponse
 import edu.student.groom.ui.theme.GroomTheme
@@ -33,7 +34,6 @@ import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.*
 import timber.log.Timber
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginPage(
     onLoginSuccess: () -> Unit
@@ -50,8 +50,10 @@ fun LoginPage(
     val viewModel: LoginViewModel = viewModel()
 
     val state: UiState<LoginResponse>? by viewModel.loginResponse.observeAsState()
-    LaunchedEffect(state) {
-        state?.let {
+    val uiState by viewModel.loginResponseFlow.collectAsStateWithLifecycle()
+
+    LaunchedEffect(uiState) {
+        uiState?.let {
             when (it) {
                 UiState.Loading -> {
                     isInProgress = true
