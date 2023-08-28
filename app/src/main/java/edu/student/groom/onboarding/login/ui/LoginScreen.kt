@@ -49,7 +49,6 @@ fun LoginPage(
     var errorMessage by rememberSaveable { mutableStateOf("") }
     val viewModel: LoginViewModel = viewModel()
 
-    val state: UiState<LoginResponse>? by viewModel.loginResponse.observeAsState()
     val uiState by viewModel.loginResponseFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState) {

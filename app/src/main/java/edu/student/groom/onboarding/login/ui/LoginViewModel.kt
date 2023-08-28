@@ -20,27 +20,11 @@ import timber.log.Timber
 
 class LoginViewModel(private val loginRepo: LoginRepo = LoginRepo()) : ViewModel() {
 
-    val loginResponse: LiveData<UiState<LoginResponse>>
-        get() = _loginResponse
-
-    private val _loginResponse = MutableLiveData<UiState<LoginResponse>>()
 
     private val _loginResponseFlow: MutableStateFlow<UiState<LoginResponse>?> = MutableStateFlow(null)
 
     val loginResponseFlow: StateFlow<UiState<LoginResponse>?> = _loginResponseFlow
 
-    /* fun login(userName: String, password: String) {
-         _loginResponse.value = UiState.Loading
-
-         viewModelScope.launch {
-             try {
-                 val response = loginRepo.logIn(LoginRequest(userName, password))
-                 _loginResponse.value = UiState.Success(response)
-             } catch (e: Exception) {
-                 _loginResponse.value = UiState.Error("Login Failed")
-             }
-         }
-     }*/
     fun login(userName: String, password: String) {
         _loginResponseFlow.value=UiState.Loading
         viewModelScope.launch {
@@ -51,7 +35,6 @@ class LoginViewModel(private val loginRepo: LoginRepo = LoginRepo()) : ViewModel
                     _loginResponseFlow.value = UiState.Success(response)
                 }
         }
-
 
     }
 }
