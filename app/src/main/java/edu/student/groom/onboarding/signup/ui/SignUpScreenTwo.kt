@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.student.groom.R
 import edu.student.groom.onboarding.signup.model.Requests
@@ -64,7 +65,7 @@ fun ShowUIPageTwo(
 
     val viewModel: SignupViewModel = viewModel()
     val scrollState = rememberScrollState()
-    val state: UiState<String>? by viewModel.singUpResponse.observeAsState()
+    val state: UiState<String>? by viewModel.singUpResponse.collectAsStateWithLifecycle()
     LaunchedEffect(state) {
         state?.let {
             when (it) {

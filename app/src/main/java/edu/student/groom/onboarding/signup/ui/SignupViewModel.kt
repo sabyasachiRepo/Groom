@@ -11,6 +11,8 @@ import edu.student.groom.onboarding.signup.model.Responses
 import edu.student.groom.onboarding.signup.model.SingUpRepo
 import edu.student.groom.util.UiState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -18,11 +20,10 @@ class SignupViewModel(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewM
 
     val institutes: MutableState<List<Responses.Institute>> = mutableStateOf(emptyList())
     val dropDownButtonName: MutableState<String> = mutableStateOf("Loading")
-    val singUpResponse: LiveData<UiState<String>>
+    val singUpResponse: StateFlow<UiState<String>?>
         get() = _singUpResponse
 
-    private val _singUpResponse: MutableLiveData<UiState<String>> =
-        MutableLiveData<UiState<String>>()
+    private val _singUpResponse: MutableStateFlow<UiState<String>?> = MutableStateFlow(null)
 
 
     var selectedInstitute: Responses.Institute? = null
