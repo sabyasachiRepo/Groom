@@ -12,8 +12,7 @@ val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
             ")+"
 )
 fun isValidEmailAddress(str: String): Boolean{
-    return true
-    //return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
+    return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
 }
 
 
