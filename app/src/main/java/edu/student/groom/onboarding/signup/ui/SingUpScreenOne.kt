@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.student.groom.R
+import edu.student.groom.letters
 import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.AnnotatedClickableTextLogin
 import edu.student.groom.util.AnnotatedClickableTextsPrivacyAndTermsAncCondition
@@ -154,7 +155,7 @@ fun ShowUIPageOne(
             value = firstNameState,
             label = { Text(text = stringResource(R.string.first_name), style = MaterialTheme.typography.subtitle1) },
             onValueChange = {
-                firstNameState = it
+                firstNameState = it.letters()
                 validateFirstName()
             },
             modifier = Modifier
@@ -168,7 +169,7 @@ fun ShowUIPageOne(
             },
             keyboardOptions = remember {
                 KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
+                    keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 )
             },
@@ -186,7 +187,7 @@ fun ShowUIPageOne(
             value = lastNameState,
             label = { Text(text = stringResource(R.string.last_name), style = MaterialTheme.typography.subtitle1) },
             onValueChange = {
-                lastNameState = it
+                lastNameState = it.letters()
                 validateLastName()
             },
             modifier = Modifier
@@ -200,7 +201,7 @@ fun ShowUIPageOne(
             },
             keyboardOptions = remember {
                 KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
+                    keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Done
                 )
             },
