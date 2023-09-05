@@ -263,3 +263,35 @@ fun ShowUIPageOne(
     }
 }
 
+@Composable
+private fun GroomTextField(emailState: String, isEmailError: Boolean,validation:()->Boolean) {
+    var emailState1 = emailState
+    OutlinedTextField(
+        value = emailState,
+        label = {
+            Text(
+                text = stringResource(R.string.email),
+                style = MaterialTheme.typography.subtitle1
+            )
+        },
+        onValueChange = {
+            emailState = it
+            validation()
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Email,
+                contentDescription = "emailIcon"
+            )
+        },
+        keyboardOptions = remember {
+            KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            )
+        },
+        isError = isEmailError,
+    )
+}
