@@ -1,5 +1,6 @@
 package edu.student.groom.onboarding.signup.ui
 
+import android.graphics.drawable.Icon
 import android.os.Build
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -118,29 +120,36 @@ fun ShowUIPageOne(
                 .wrapContentSize(),
 
             ) {
-            OutlinedTextField(
-                value = emailState,
-                label = { Text(text = stringResource(R.string.email), style = MaterialTheme.typography.subtitle1) },
-                onValueChange = {
-                    emailState = it
-                    validateEmail()
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Email,
-                        contentDescription = "emailIcon"
-                    )
-                },
-                keyboardOptions = remember {
-                    KeyboardOptions(
-                        keyboardType = KeyboardType.Email,
-                        imeAction = ImeAction.Next
-                    )
-                },
+            /*      OutlinedTextField(
+                      value = emailState,
+                      label = { Text(text = stringResource(R.string.email), style = MaterialTheme.typography.subtitle1) },
+                      onValueChange = {
+                          emailState = it
+                          validateEmail()
+                      },
+                      modifier = Modifier
+                          .fillMaxWidth(),
+                      leadingIcon = {
+                          Icon(
+                              imageVector = Icons.Default.Email,
+                              contentDescription = "emailIcon"
+                          )
+                      },
+                      keyboardOptions = remember {
+                          KeyboardOptions(
+                              keyboardType = KeyboardType.Email,
+                              imeAction = ImeAction.Next
+                          )
+                      },
+                      isError = isEmailError,
+                  )*/
+           /* GroomTextField(
+                state = emailState,
                 isError = isEmailError,
-            )
+                onStateChange = { emailState = it }) {
+                validateEmail()
+            }*/
+
             if (isEmailError) {
                 Text(
                     text = stringResource(R.string.email_error_message),
@@ -153,7 +162,12 @@ fun ShowUIPageOne(
 
         OutlinedTextField(
             value = firstNameState,
-            label = { Text(text = stringResource(R.string.first_name), style = MaterialTheme.typography.subtitle1) },
+            label = {
+                Text(
+                    text = stringResource(R.string.first_name),
+                    style = MaterialTheme.typography.subtitle1
+                )
+            },
             onValueChange = {
                 firstNameState = it.letters()
                 validateFirstName()
@@ -185,7 +199,12 @@ fun ShowUIPageOne(
         }
         OutlinedTextField(
             value = lastNameState,
-            label = { Text(text = stringResource(R.string.last_name), style = MaterialTheme.typography.subtitle1) },
+            label = {
+                Text(
+                    text = stringResource(R.string.last_name),
+                    style = MaterialTheme.typography.subtitle1
+                )
+            },
             onValueChange = {
                 lastNameState = it.letters()
                 validateLastName()
@@ -224,7 +243,7 @@ fun ShowUIPageOne(
                 .align(CenterHorizontally)
                 .padding(top = 24.dp)
         ) {
-            AnnotatedClickableTextsPrivacyAndTermsAncCondition({},{})
+            AnnotatedClickableTextsPrivacyAndTermsAncCondition({}, {})
         }
 
         Button(
@@ -264,10 +283,17 @@ fun ShowUIPageOne(
 }
 
 @Composable
-private fun GroomTextField(emailState: String, isEmailError: Boolean,validation:()->Boolean) {
-    var emailState1 = emailState
+private fun GroomTextField(
+    state: String,
+    isError: Boolean,
+    keyboardOptions: KeyboardOptions,
+    leadingIcon: Icon,
+    onStateChange: (String) -> Unit,
+    validation: () -> Boolean
+) {
+    state
     OutlinedTextField(
-        value = emailState,
+        value = state,
         label = {
             Text(
                 text = stringResource(R.string.email),
@@ -275,7 +301,7 @@ private fun GroomTextField(emailState: String, isEmailError: Boolean,validation:
             )
         },
         onValueChange = {
-            emailState = it
+            onStateChange(it)
             validation()
         },
         modifier = Modifier
@@ -292,6 +318,6 @@ private fun GroomTextField(emailState: String, isEmailError: Boolean,validation:
                 imeAction = ImeAction.Next
             )
         },
-        isError = isEmailError,
+        isError = isError,
     )
 }
