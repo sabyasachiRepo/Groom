@@ -143,12 +143,23 @@ fun ShowUIPageOne(
                       },
                       isError = isEmailError,
                   )*/
-           /* GroomTextField(
+            GroomTextField(
+                stringResource(R.string.email),
                 state = emailState,
                 isError = isEmailError,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next
+                ),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = "emailIcon"
+                    )
+                },
                 onStateChange = { emailState = it }) {
                 validateEmail()
-            }*/
+            }
 
             if (isEmailError) {
                 Text(
@@ -160,7 +171,7 @@ fun ShowUIPageOne(
             }
         }
 
-        OutlinedTextField(
+      /*  OutlinedTextField(
             value = firstNameState,
             label = {
                 Text(
@@ -188,7 +199,26 @@ fun ShowUIPageOne(
                 )
             },
             isError = isFirstNameError
-        )
+        )*/
+
+        GroomTextField(
+            stringResource(R.string.first_name),
+            state = firstNameState,
+            isError = isFirstNameError,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            ),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Face,
+                    contentDescription = stringResource(R.string.first_name_icon_desc)
+                )
+            },
+            onStateChange = {  firstNameState = it.letters()}) {
+            validateFirstName()
+        }
+
         if (isFirstNameError) {
             Text(
                 text = stringResource(R.string.first_name_error_message),
@@ -197,7 +227,7 @@ fun ShowUIPageOne(
                 modifier = Modifier.padding(start = 14.dp)
             )
         }
-        OutlinedTextField(
+        /*OutlinedTextField(
             value = lastNameState,
             label = {
                 Text(
@@ -228,7 +258,29 @@ fun ShowUIPageOne(
                 onDone = { keyboardController?.hide() }
             ),
             isError = isLastNameError
-        )
+        )*/
+        GroomTextField(
+            stringResource(R.string.last_name),
+            state = lastNameState,
+            isError = isLastNameError,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { keyboardController?.hide() }
+            ),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Face,
+                    contentDescription = "Last name"
+                )
+            },
+            onStateChange = {  lastNameState = it.letters()}) {
+            validateLastName()
+        }
+
+
         if (isLastNameError) {
             Text(
                 text = stringResource(R.string.last_name_error_message),
@@ -284,10 +336,12 @@ fun ShowUIPageOne(
 
 @Composable
 private fun GroomTextField(
+    hint: String,
     state: String,
     isError: Boolean,
     keyboardOptions: KeyboardOptions,
-    leadingIcon: Icon,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    leadingIcon: @Composable (() -> Unit),
     onStateChange: (String) -> Unit,
     validation: () -> Boolean
 ) {
@@ -296,7 +350,7 @@ private fun GroomTextField(
         value = state,
         label = {
             Text(
-                text = stringResource(R.string.email),
+                text = hint,
                 style = MaterialTheme.typography.subtitle1
             )
         },
@@ -306,18 +360,11 @@ private fun GroomTextField(
         },
         modifier = Modifier
             .fillMaxWidth(),
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Email,
-                contentDescription = "emailIcon"
-            )
-        },
+        leadingIcon = leadingIcon,
         keyboardOptions = remember {
-            KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
-            )
+            keyboardOptions
         },
+        keyboardActions=keyboardActions,
         isError = isError,
     )
 }
