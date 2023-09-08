@@ -120,29 +120,6 @@ fun ShowUIPageOne(
                 .wrapContentSize(),
 
             ) {
-            /*      OutlinedTextField(
-                      value = emailState,
-                      label = { Text(text = stringResource(R.string.email), style = MaterialTheme.typography.subtitle1) },
-                      onValueChange = {
-                          emailState = it
-                          validateEmail()
-                      },
-                      modifier = Modifier
-                          .fillMaxWidth(),
-                      leadingIcon = {
-                          Icon(
-                              imageVector = Icons.Default.Email,
-                              contentDescription = "emailIcon"
-                          )
-                      },
-                      keyboardOptions = remember {
-                          KeyboardOptions(
-                              keyboardType = KeyboardType.Email,
-                              imeAction = ImeAction.Next
-                          )
-                      },
-                      isError = isEmailError,
-                  )*/
             GroomTextField(
                 stringResource(R.string.email),
                 state = emailState,
@@ -171,35 +148,6 @@ fun ShowUIPageOne(
             }
         }
 
-      /*  OutlinedTextField(
-            value = firstNameState,
-            label = {
-                Text(
-                    text = stringResource(R.string.first_name),
-                    style = MaterialTheme.typography.subtitle1
-                )
-            },
-            onValueChange = {
-                firstNameState = it.letters()
-                validateFirstName()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 5.dp),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Face,
-                    contentDescription = stringResource(R.string.first_name_icon_desc)
-                )
-            },
-            keyboardOptions = remember {
-                KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next
-                )
-            },
-            isError = isFirstNameError
-        )*/
 
         GroomTextField(
             stringResource(R.string.first_name),
@@ -227,38 +175,7 @@ fun ShowUIPageOne(
                 modifier = Modifier.padding(start = 14.dp)
             )
         }
-        /*OutlinedTextField(
-            value = lastNameState,
-            label = {
-                Text(
-                    text = stringResource(R.string.last_name),
-                    style = MaterialTheme.typography.subtitle1
-                )
-            },
-            onValueChange = {
-                lastNameState = it.letters()
-                validateLastName()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 5.dp),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Face,
-                    contentDescription = "emailIcon"
-                )
-            },
-            keyboardOptions = remember {
-                KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                )
-            },
-            keyboardActions = KeyboardActions(
-                onDone = { keyboardController?.hide() }
-            ),
-            isError = isLastNameError
-        )*/
+
         GroomTextField(
             stringResource(R.string.last_name),
             state = lastNameState,
