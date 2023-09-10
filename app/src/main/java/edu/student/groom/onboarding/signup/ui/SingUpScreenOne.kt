@@ -32,6 +32,7 @@ import edu.student.groom.letters
 import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.AnnotatedClickableTextLogin
 import edu.student.groom.util.AnnotatedClickableTextsPrivacyAndTermsAncCondition
+import edu.student.groom.util.GroomTextField
 import edu.student.groom.util.RegistrationLottieAnimation
 import edu.student.groom.util.isValidEmailAddress
 
@@ -251,37 +252,3 @@ fun ShowUIPageOne(
     }
 }
 
-@Composable
-private fun GroomTextField(
-    hint: String,
-    state: String,
-    isError: Boolean,
-    keyboardOptions: KeyboardOptions,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
-    leadingIcon: @Composable (() -> Unit),
-    onStateChange: (String) -> Unit,
-    validation: () -> Boolean
-) {
-    state
-    OutlinedTextField(
-        value = state,
-        label = {
-            Text(
-                text = hint,
-                style = MaterialTheme.typography.subtitle1
-            )
-        },
-        onValueChange = {
-            onStateChange(it)
-            validation()
-        },
-        modifier = Modifier
-            .fillMaxWidth(),
-        leadingIcon = leadingIcon,
-        keyboardOptions = remember {
-            keyboardOptions
-        },
-        keyboardActions=keyboardActions,
-        isError = isError,
-    )
-}

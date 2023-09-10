@@ -1,12 +1,15 @@
 package edu.student.groom.onboarding.login.ui
+
 import android.os.Build
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -19,6 +22,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,6 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.student.groom.R
+import edu.student.groom.letters
 import edu.student.groom.onboarding.login.model.LoginResponse
 import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.ui.theme.orange
@@ -57,11 +63,13 @@ fun LoginPage(
                 UiState.Loading -> {
                     isInProgress = true
                 }
+
                 is UiState.Success<LoginResponse> -> {
                     isInProgress = false
                     onLoginSuccess()
                     Timber.d("Login:", "Login success")
                 }
+
                 is UiState.Error -> {
                     isInProgress = false
                     errorMessage = it.message
@@ -149,29 +157,24 @@ fun LoginPage(
                     .wrapContentSize(),
 
                 ) {
-                OutlinedTextField(
-                    value = emailState,
-                    label = { Text(text = "Email", style = MaterialTheme.typography.subtitle1) },
-                    onValueChange = {
-                        emailState = it
-                        validateEmail()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(),
+
+                GroomTextField(
+                    hint = "Email",
+                    state = emailState,
+                    isError = isEmailError,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next
+                    ),
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Email,
-                            contentDescription = "emailIcon"
+                            contentDescription = "Email Icon"
                         )
                     },
-                    keyboardOptions = remember {
-                        KeyboardOptions(
-                            keyboardType = KeyboardType.Email,
-                            imeAction = ImeAction.Next
-                        )
-                    },
-                    isError = isEmailError,
-                )
+                    onStateChange = { emailState = it }) {
+                    validateEmail()
+                }
                 if (isEmailError) {
                     Text(
                         text = "Please provide valid email",
@@ -182,16 +185,16 @@ fun LoginPage(
                 }
             }
 
-            OutlinedTextField(
-                value = passwordState,
-                label = { Text(text = "Password", style = MaterialTheme.typography.subtitle1) },
-                onValueChange = {
-                    passwordState = it
-                    validatePassword()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 5.dp),
+
+
+            GroomTextField(
+                hint = "Password",
+                state = passwordState,
+                isError = isPasswordError,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Next
+                ),
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Lock,
@@ -199,15 +202,9 @@ fun LoginPage(
                     )
                 },
                 visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = remember {
-                    KeyboardOptions(
-
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Next
-                    )
-                },
-                isError = isPasswordError
-            )
+                onStateChange = { passwordState = it }) {
+                validatePassword()
+            }
             if (isPasswordError) {
                 Text(
                     text = "Password can not be empty",

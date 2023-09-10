@@ -72,11 +72,13 @@ fun ShowUIPageTwo(
                 UiState.Loading -> {
                     isInProgress = true
                 }
+
                 is UiState.Success<String> -> {
                     isInProgress = false
                     signUpSuccess()
                     Timber.d("SignUp:", "SignUp success")
                 }
+
                 is UiState.Error -> {
                     isInProgress = false
                     errorMessage = it.message
@@ -192,34 +194,25 @@ fun ShowUIPageTwo(
                         modifier = Modifier.padding(start = 14.dp)
                     )
                 }
-                OutlinedTextField(
-                    value = mobileNumber,
-                    label = {
-                        Text(
-                            text = stringResource(R.string.mobile_number),
-                            style = MaterialTheme.typography.subtitle1
-                        )
-                    },
-                    onValueChange = {
-                        mobileNumber = it
-                        validateMobileNumber()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
+                GroomTextField(
+                    hint = stringResource(R.string.mobile_number),
+                    state = mobileNumber,
+                    isError = isMobileNumberError,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.NumberPassword,
+                        imeAction = ImeAction.Next
+                    ),
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Phone,
                             contentDescription = stringResource(R.string.phone_icon)
                         )
                     },
-                    maxLines = 1,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.NumberPassword,
-                        imeAction = ImeAction.Next
-                    ),
-                    isError = isMobileNumberError
-                )
+                    onStateChange = { mobileNumber = it }
+                ) {
+                    validateMobileNumber()
+                }
+
                 if (isMobileNumberError) {
                     Text(
                         text = stringResource(R.string.please_enter_valid_mobile_number),
@@ -228,31 +221,26 @@ fun ShowUIPageTwo(
                         modifier = Modifier.padding(start = 14.dp)
                     )
                 }
-                OutlinedTextField(
-                    value = password,
-                    label = { Text(text = "Password", style = MaterialTheme.typography.subtitle1) },
-                    onValueChange = {
-                        password = it
-                        validatePassword()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp),
+
+                GroomTextField(
+                    hint = "Password",
+                    state = password,
+                    isError = isPasswordError,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Next
+                    ),
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Lock,
                             contentDescription = stringResource(R.string.password_icon)
                         )
                     },
-                    maxLines = 1,
                     visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Next
-                    ),
-                    isError = isPasswordError
-
-                )
+                    onStateChange = { password = it }
+                ) {
+                    validatePassword()
+                }
                 if (isPasswordError) {
                     Text(
                         text = stringResource(R.string.please_set_password),
@@ -261,35 +249,25 @@ fun ShowUIPageTwo(
                         modifier = Modifier.padding(start = 14.dp)
                     )
                 }
-                OutlinedTextField(
-                    value = confirmPassword,
-                    label = {
-                        Text(
-                            text = stringResource(R.string.confirm_password),
-                            style = MaterialTheme.typography.subtitle1
-                        )
-                    },
-                    onValueChange = {
-                        confirmPassword = it
-                        validateConfirmPassword()
-                    },
-                    modifier = Modifier.fillMaxWidth(),
+
+                GroomTextField(
+                    hint = stringResource(R.string.confirm_password),
+                    state = confirmPassword,
+                    isError = isConfirmPasswordError,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Lock,
                             contentDescription = stringResource(R.string.confirm_password_icon)
                         )
                     },
-                    maxLines = 1,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = { keyboardController?.hide() }
-                    ),
-                    isError = isConfirmPasswordError
-                )
+                    onStateChange = { confirmPassword = it }
+                ) {
+                    validateConfirmPassword()
+                }
 
                 if (isConfirmPasswordError) {
                     Text(

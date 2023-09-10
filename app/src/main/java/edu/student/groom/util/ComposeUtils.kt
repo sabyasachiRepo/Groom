@@ -7,6 +7,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -17,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
@@ -247,7 +250,10 @@ fun AnnotatedClickableTextRegister(onRegisterClick: () -> Unit) {
 
 
 @Composable
-fun AnnotatedClickableTextsPrivacyAndTermsAncCondition(onTermsAndConditionClick: () -> Unit,onPrivacyPolicyClick: () -> Unit) {
+fun AnnotatedClickableTextsPrivacyAndTermsAncCondition(
+    onTermsAndConditionClick: () -> Unit,
+    onPrivacyPolicyClick: () -> Unit
+) {
     val annotatedString = buildAnnotatedString {
         withStyle(
             style = SpanStyle(
@@ -259,8 +265,12 @@ fun AnnotatedClickableTextsPrivacyAndTermsAncCondition(onTermsAndConditionClick:
         }
 
         pushStringAnnotation(tag = "policy", annotation = "https://google.com/policy")
-        withStyle(style = SpanStyle( color = Color.Blue,
-            fontWeight = FontWeight.Normal)) {
+        withStyle(
+            style = SpanStyle(
+                color = Color.Blue,
+                fontWeight = FontWeight.Normal
+            )
+        ) {
             append("privacy policy")
         }
         pop()
@@ -269,8 +279,12 @@ fun AnnotatedClickableTextsPrivacyAndTermsAncCondition(onTermsAndConditionClick:
 
         pushStringAnnotation(tag = "terms", annotation = "https://google.com/terms")
 
-        withStyle(style = SpanStyle( color = Color.Blue,
-            fontWeight = FontWeight.Normal)) {
+        withStyle(
+            style = SpanStyle(
+                color = Color.Blue,
+                fontWeight = FontWeight.Normal
+            )
+        ) {
             append("terms of use")
         }
 
@@ -278,15 +292,57 @@ fun AnnotatedClickableTextsPrivacyAndTermsAncCondition(onTermsAndConditionClick:
     }
 
 
-    ClickableText(text = annotatedString, style = MaterialTheme.typography.body1, onClick = { offset ->
-        annotatedString.getStringAnnotations(tag = "policy", start = offset, end = offset).firstOrNull()?.let {
+    ClickableText(
+        text = annotatedString,
+        style = MaterialTheme.typography.body1,
+        onClick = { offset ->
+            annotatedString.getStringAnnotations(tag = "policy", start = offset, end = offset)
+                .firstOrNull()?.let {
                 onPrivacyPolicyClick()
-        }
+            }
 
-        annotatedString.getStringAnnotations(tag = "terms", start = offset, end = offset).firstOrNull()?.let {
-            onTermsAndConditionClick()
-        }
-    })
+            annotatedString.getStringAnnotations(tag = "terms", start = offset, end = offset)
+                .firstOrNull()?.let {
+                onTermsAndConditionClick()
+            }
+        })
+}
+
+@Composable
+fun GroomTextField(
+    hint: String,
+    state: String,
+    isError: Boolean,
+    keyboardOptions: KeyboardOptions,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    leadingIcon: @Composable (() -> Unit),
+    onStateChange: (String) -> Unit,
+    validation: () -> Boolean
+) {
+    OutlinedTextField(
+        value = state,
+        label = {
+            Text(
+                text = hint,
+                style = MaterialTheme.typography.subtitle1
+            )
+        },
+        onValueChange = {
+            onStateChange(it)
+            validation()
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        leadingIcon = leadingIcon,
+        keyboardOptions = remember {
+            keyboardOptions
+        },
+        maxLines = 1,
+        visualTransformation = visualTransformation,
+                keyboardActions = keyboardActions,
+        isError = isError,
+    )
 }
 
 
