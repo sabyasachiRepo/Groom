@@ -187,12 +187,7 @@ fun ShowUIPageTwo(
                     validateInstitute()
                 }
                 if (isInstituteError) {
-                    Text(
-                        text = stringResource(R.string.please_select_institute),
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.padding(start = 14.dp)
-                    )
+                    GroomTextFieldError(errorMessage = stringResource(R.string.please_select_institute))
                 }
                 GroomTextField(
                     hint = stringResource(R.string.mobile_number),
@@ -214,12 +209,7 @@ fun ShowUIPageTwo(
                 }
 
                 if (isMobileNumberError) {
-                    Text(
-                        text = stringResource(R.string.please_enter_valid_mobile_number),
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.padding(start = 14.dp)
-                    )
+                    GroomTextFieldError(errorMessage = stringResource(R.string.please_enter_valid_mobile_number))
                 }
 
                 GroomTextField(
@@ -242,12 +232,7 @@ fun ShowUIPageTwo(
                     validatePassword()
                 }
                 if (isPasswordError) {
-                    Text(
-                        text = stringResource(R.string.please_set_password),
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.padding(start = 14.dp)
-                    )
+                    GroomTextFieldError(errorMessage = stringResource(R.string.please_set_password))
                 }
 
                 GroomTextField(
@@ -270,12 +255,7 @@ fun ShowUIPageTwo(
                 }
 
                 if (isConfirmPasswordError) {
-                    Text(
-                        text = stringResource(R.string.password_and_confirm_password_are_not_same),
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.padding(start = 14.dp)
-                    )
+                    GroomTextFieldError(errorMessage = stringResource(R.string.password_and_confirm_password_are_not_same))
                 }
 
                 Text(

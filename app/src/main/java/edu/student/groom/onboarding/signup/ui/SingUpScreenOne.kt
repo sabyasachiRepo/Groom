@@ -33,6 +33,7 @@ import edu.student.groom.ui.theme.orange
 import edu.student.groom.util.AnnotatedClickableTextLogin
 import edu.student.groom.util.AnnotatedClickableTextsPrivacyAndTermsAncCondition
 import edu.student.groom.util.GroomTextField
+import edu.student.groom.util.GroomTextFieldError
 import edu.student.groom.util.RegistrationLottieAnimation
 import edu.student.groom.util.isValidEmailAddress
 
@@ -140,12 +141,7 @@ fun ShowUIPageOne(
             }
 
             if (isEmailError) {
-                Text(
-                    text = stringResource(R.string.email_error_message),
-                    color = MaterialTheme.colors.error,
-                    style = MaterialTheme.typography.subtitle2,
-                    modifier = Modifier.padding(start = 14.dp)
-                )
+                GroomTextFieldError(errorMessage = stringResource(R.string.email_error_message))
             }
         }
 
@@ -164,17 +160,12 @@ fun ShowUIPageOne(
                     contentDescription = stringResource(R.string.first_name_icon_desc)
                 )
             },
-            onStateChange = {  firstNameState = it.letters()}) {
+            onStateChange = { firstNameState = it.letters() }) {
             validateFirstName()
         }
 
         if (isFirstNameError) {
-            Text(
-                text = stringResource(R.string.first_name_error_message),
-                color = MaterialTheme.colors.error,
-                style = MaterialTheme.typography.subtitle2,
-                modifier = Modifier.padding(start = 14.dp)
-            )
+            GroomTextFieldError(errorMessage = stringResource(R.string.first_name_error_message))
         }
 
         GroomTextField(
@@ -194,18 +185,13 @@ fun ShowUIPageOne(
                     contentDescription = "Last name"
                 )
             },
-            onStateChange = {  lastNameState = it.letters()}) {
+            onStateChange = { lastNameState = it.letters() }) {
             validateLastName()
         }
 
 
         if (isLastNameError) {
-            Text(
-                text = stringResource(R.string.last_name_error_message),
-                color = MaterialTheme.colors.error,
-                style = MaterialTheme.typography.subtitle2,
-                modifier = Modifier.padding(start = 14.dp)
-            )
+            GroomTextFieldError(errorMessage = stringResource(R.string.last_name_error_message))
         }
 
         Box(
