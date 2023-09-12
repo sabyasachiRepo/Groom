@@ -176,12 +176,7 @@ fun LoginPage(
                     validateEmail()
                 }
                 if (isEmailError) {
-                    Text(
-                        text = "Please provide valid email",
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.padding(start = 14.dp)
-                    )
+                    GroomTextFieldError(errorMessage = "Please provide valid email")
                 }
             }
 
@@ -206,12 +201,7 @@ fun LoginPage(
                 validatePassword()
             }
             if (isPasswordError) {
-                Text(
-                    text = "Password can not be empty",
-                    color = MaterialTheme.colors.error,
-                    style = MaterialTheme.typography.subtitle2,
-                    modifier = Modifier.padding(start = 14.dp)
-                )
+                GroomTextFieldError(errorMessage = "Password can not be empty")
             }
 
 
