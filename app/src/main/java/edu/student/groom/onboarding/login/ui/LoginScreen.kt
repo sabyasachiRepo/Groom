@@ -176,7 +176,7 @@ fun LoginPage(
                     validateEmail()
                 }
                 if (isEmailError) {
-                    GroomTextFieldError(errorMessage = "Please provide valid email")
+                    GroomTextFieldError(errorMessage = stringResource(R.string.email_error_message))
                 }
             }
 
@@ -201,7 +201,7 @@ fun LoginPage(
                 validatePassword()
             }
             if (isPasswordError) {
-                GroomTextFieldError(errorMessage = "Password can not be empty")
+                GroomTextFieldError(errorMessage = stringResource(R.string.password_error_message))
             }
 
 

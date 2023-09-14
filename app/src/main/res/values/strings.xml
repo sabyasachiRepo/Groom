@@ -22,4 +22,5 @@
     <string name="confirm_password_icon">Confirm Password Icon</string>
     <string name="password_and_confirm_password_are_not_same">Password and Confirm Password are not same</string>
     <string name="terms_and_conditions_and_privacy_policy">By signing up,you\'re agree to our Terms and Conditions and Privacy Policy</string>
+    <string name="password_error_message">Password can not be empty</string>
 </resources>
