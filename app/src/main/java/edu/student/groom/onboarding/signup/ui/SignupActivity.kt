@@ -13,7 +13,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import edu.student.groom.home.HomeScreen
+import edu.student.groom.home.homeScreen
+import edu.student.groom.home.navigateToHomeScreen
 import edu.student.groom.onboarding.login.ui.LoginPage
+import edu.student.groom.onboarding.login.ui.navigation.loginScreen
+import edu.student.groom.onboarding.login.ui.navigation.navigateToLogin
 import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.util.safeLet
 
@@ -39,7 +43,7 @@ fun RegistrationScreens() {
             val focusManager = LocalFocusManager.current
 
             ShowUIPageOne(focusManager, {
-                navController.navigate("login_page")
+                navController.navigateToLogin()
             }) { email, firstName, lastName ->
                 navController.navigate("page_two/$firstName/$lastName/$email")
             }
@@ -64,28 +68,17 @@ fun RegistrationScreens() {
                     lName,
                     eMail
                 ) {
-                    navController.navigate("login_page")
+                    navController.navigateToLogin()
                 }
             }
 
         }
 
-        composable("login_page") {
-            val context = LocalContext.current
-            val focusManager = LocalFocusManager.current
-            LoginPage {
-                navController.navigate("home_page"){
-                    navController.popBackStack()
-                    navController.popBackStack()
-                }
-            }
+        loginScreen {
+            navController.navigateToHomeScreen()
         }
+        homeScreen()
 
-        composable("home_page") {
-            val context = LocalContext.current
-            val focusManager = LocalFocusManager.current
-            HomeScreen()
-        }
     }
 }
 
