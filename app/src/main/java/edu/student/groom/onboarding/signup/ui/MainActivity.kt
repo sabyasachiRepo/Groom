@@ -12,7 +12,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import edu.student.groom.home.HomeScreen
 import edu.student.groom.home.homeScreen
 import edu.student.groom.home.navigateToHomeScreen
 import edu.student.groom.onboarding.login.ui.LoginPage
@@ -28,17 +27,17 @@ class RegistrationActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent { ->
             GroomTheme() {
-                RegistrationScreens()
+                MainScreen()
             }
         }
     }
 }
 
 @Composable
-fun RegistrationScreens() {
+fun MainScreen() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "page_one") {
-        composable("page_one") {
+    NavHost(navController = navController, startDestination = singUpRoute) {
+       /* composable("page_one") {
             val context = LocalContext.current
             val focusManager = LocalFocusManager.current
 
@@ -71,9 +70,11 @@ fun RegistrationScreens() {
                     navController.navigateToLogin()
                 }
             }
+        }*/
 
+        signUpScreen({navController.navigateToLogin()}){fName, lName, eMail ->
+            navController.navigateToSingUpScreenPageTwo(fName,lName,eMail)
         }
-
         loginScreen {
             navController.navigateToHomeScreen()
         }
