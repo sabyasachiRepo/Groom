@@ -16,7 +16,10 @@ import edu.student.groom.util.safeLet
 const val singUpRoute = "signup_route"
 const val singUpRoutePageOne = "signup_route_page_one"
 const val pageTwo = "signup_route_page_two"
-const val singUpRoutePageTwo = "$pageTwo/{firstName}/{lastName}/{email}"
+const val firstNameArg="firstName"
+const val lastNameArg="lastName"
+const val emailArg="email"
+const val singUpRoutePageTwo = "$pageTwo/{$firstNameArg}/{$lastNameArg}/{$emailArg}"
 
 fun NavController.navigateToSingUpScreenPageOne() {
     this.navigate(singUpRoutePageOne)
@@ -38,16 +41,17 @@ fun NavGraphBuilder.signUpScreen(navigateToLogin: () -> Unit, continueClick: (em
 
             }
         }
-        composable(route = singUpRoutePageTwo,arguments = listOf(navArgument("firstName") {
+        composable(route = singUpRoutePageTwo,arguments = listOf(navArgument(firstNameArg) {
             type = NavType.StringType
-        }, navArgument("lastName") {
+        }, navArgument(lastNameArg) {
             type = NavType.StringType
-        }, navArgument("email") {
+        }, navArgument(emailArg) {
             type = NavType.StringType
         })) {
-            val firstName = it.arguments?.getString("firstName")
-            val lastName = it.arguments?.getString("lastName")
-            val email = it.arguments?.getString("email")
+            val firstName = it.arguments?.getString(
+                firstNameArg)
+            val lastName = it.arguments?.getString(lastNameArg)
+            val email = it.arguments?.getString(emailArg)
             safeLet(firstName, lastName, email) { fName, lName, eMail ->
                 ShowUIPageTwo(
                     fName,
