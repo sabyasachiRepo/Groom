@@ -1,6 +1,5 @@
 package edu.student.groom.onboarding.signup.ui
 
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -8,9 +7,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import edu.student.groom.home.HomeScreen
-import edu.student.groom.home.homeScreenRoute
-import edu.student.groom.onboarding.login.ui.navigation.navigateToLogin
 import edu.student.groom.util.safeLet
 
 const val singUpRoute = "signup_route"
@@ -29,13 +25,16 @@ fun NavController.navigateToSingUpScreenPageTwo(firstName: String, lastName: Str
     this.navigate("$pageTwo/$firstName/$lastName/$email")
 }
 
-fun NavGraphBuilder.signUpScreen(navigateToLogin: () -> Unit, continueClick: (email: String, firstname: String, lastName: String) -> Unit) {
+fun NavGraphBuilder.signUpScreen(
+    goToLoginScreenOptionalBackStack: (Boolean) -> Unit,
+    continueClick: (email: String, firstname: String, lastName: String) -> Unit
+) {
 
     navigation(startDestination = singUpRoutePageOne, route = singUpRoute) {
         composable(route = singUpRoutePageOne) {
 
             ShowUIPageOne(LocalFocusManager.current, {
-                navigateToLogin()
+                goToLoginScreenOptionalBackStack(false)
             }) { email, firstName, lastName ->
                 continueClick(email,firstName,lastName)
 
@@ -58,7 +57,7 @@ fun NavGraphBuilder.signUpScreen(navigateToLogin: () -> Unit, continueClick: (em
                     lName,
                     eMail
                 ) {
-                    navigateToLogin()
+                    goToLoginScreenOptionalBackStack(true)
                 }
             }
         }

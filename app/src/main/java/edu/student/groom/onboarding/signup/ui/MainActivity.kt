@@ -37,43 +37,9 @@ class RegistrationActivity : ComponentActivity() {
 fun MainScreen() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = singUpRoute) {
-       /* composable("page_one") {
-            val context = LocalContext.current
-            val focusManager = LocalFocusManager.current
 
-            ShowUIPageOne(focusManager, {
-                navController.navigateToLogin()
-            }) { email, firstName, lastName ->
-                navController.navigate("page_two/$firstName/$lastName/$email")
-            }
-        }
-        composable(
-            "page_two/{firstName}/{lastName}/{email}",
-            arguments = listOf(navArgument("firstName") {
-                type = NavType.StringType
-            }, navArgument("lastName") {
-                type = NavType.StringType
-            }, navArgument("email") {
-                type = NavType.StringType
-            })
-        ) {
-            val focusManager = LocalFocusManager.current
-            val firstName = it.arguments?.getString("firstName")
-            val lastName = it.arguments?.getString("lastName")
-            val email = it.arguments?.getString("email")
-            safeLet(firstName, lastName, email) { fName, lName, eMail ->
-                ShowUIPageTwo(
-                    fName,
-                    lName,
-                    eMail
-                ) {
-                    navController.navigateToLogin()
-                }
-            }
-        }*/
-
-        signUpScreen({navController.navigateToLogin()}){fName, lName, eMail ->
-            navController.navigateToSingUpScreenPageTwo(fName,lName,eMail)
+        signUpScreen({ shouldClearBackStack -> navController.navigateToLogin(shouldClearBackStack) }) { fName, lName, eMail ->
+            navController.navigateToSingUpScreenPageTwo(fName, lName, eMail)
         }
         loginScreen {
             navController.navigateToHomeScreen()

@@ -8,8 +8,10 @@ import edu.student.groom.onboarding.login.ui.LoginPage
 
 const val loginRoute = "login_route"
 
-fun NavController.navigateToLogin() {
-    this.popBackStack(graph.startDestinationId,true)
+fun NavController.navigateToLogin(clearBackStack: Boolean = false) {
+    if (clearBackStack) {
+        this.popBackStack(graph.startDestinationId, true)
+    }
     this.navigate(loginRoute)
 }
 
