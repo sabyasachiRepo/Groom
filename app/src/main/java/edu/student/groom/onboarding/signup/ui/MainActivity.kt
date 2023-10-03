@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import dagger.hilt.android.AndroidEntryPoint
 import edu.student.groom.home.homeScreen
 import edu.student.groom.home.navigateToHomeScreen
 import edu.student.groom.onboarding.login.ui.LoginPage
@@ -20,6 +21,7 @@ import edu.student.groom.onboarding.login.ui.navigation.navigateToLogin
 import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.util.safeLet
 
+@AndroidEntryPoint
 class RegistrationActivity : ComponentActivity() {
 
 
