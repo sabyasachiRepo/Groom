@@ -19,7 +19,6 @@ fun HomeScreen(){
         .fillMaxHeight()
 
     ) {
-
         Text(
             text = "Welcome to Groom Home Screen",
             modifier = Modifier.padding(top = 24.dp)

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.student.groom.onboarding.signup.model.Requests
 import edu.student.groom.onboarding.signup.model.Responses
 import edu.student.groom.onboarding.signup.model.SingUpRepo
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@HiltViewModel
 class SignupViewModel(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewModel() {
 
     val institutes: MutableState<List<Responses.Institute>> = mutableStateOf(emptyList())
