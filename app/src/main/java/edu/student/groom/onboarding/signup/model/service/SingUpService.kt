@@ -6,8 +6,10 @@ import edu.student.groom.onboarding.signup.model.Responses
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import javax.inject.Inject
 
-class SingUpService {
+
+class SingUpService @Inject constructor(){
 
 
      var signupApi: SignupApi
