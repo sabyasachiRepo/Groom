@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.scopes.ViewModelScoped
 import edu.student.groom.onboarding.login.model.LoginRepo
 import edu.student.groom.onboarding.login.model.LoginRequest
 import edu.student.groom.onboarding.login.model.LoginResponse
@@ -18,6 +19,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+
+@ViewModelScoped
 class LoginViewModel(private val loginRepo: LoginRepo = LoginRepo()) : ViewModel() {
 
 

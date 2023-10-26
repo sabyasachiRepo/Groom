@@ -7,8 +7,10 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
+@Singleton
 class SingUpService @Inject constructor(){
 
 
