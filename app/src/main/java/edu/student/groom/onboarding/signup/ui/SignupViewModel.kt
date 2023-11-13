@@ -16,9 +16,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-@HiltViewModel
-class SignupViewModel(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewModel() {
+class  SignupViewModel  constructor(private val singUpRepo: SingUpRepo = SingUpRepo()) : ViewModel() {
 
     val institutes: MutableState<List<Responses.Institute>> = mutableStateOf(emptyList())
     val dropDownButtonName: MutableState<String> = mutableStateOf("Loading")
