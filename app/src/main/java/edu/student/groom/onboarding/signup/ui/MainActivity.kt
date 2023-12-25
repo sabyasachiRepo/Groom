@@ -40,8 +40,8 @@ fun MainScreen() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = singUpRoute) {
 
-        signUpScreen({ shouldClearBackStack -> navController.navigateToLogin(shouldClearBackStack) }) { fName, lName, eMail ->
-            navController.navigateToSingUpScreenPageTwo(fName, lName, eMail)
+        signUpScreen({ shouldClearBackStack -> navController.navigateToLogin(shouldClearBackStack) }) { eMail,fName, lName ->
+            navController.navigateToSingUpScreenPageTwo(eMail,fName, lName)
         }
         loginScreen {
             navController.navigateToHomeScreen()
