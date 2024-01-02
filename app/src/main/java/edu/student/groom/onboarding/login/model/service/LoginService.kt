@@ -14,8 +14,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LoginService {
+
+@Singleton
+class LoginService @Inject constructor(){
 
 
     var loginApi: LoginApi

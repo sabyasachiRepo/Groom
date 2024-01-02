@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import edu.student.groom.onboarding.login.model.LoginRepo
 import edu.student.groom.onboarding.login.model.LoginRequest
@@ -18,10 +19,11 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 
-@ViewModelScoped
-class LoginViewModel(private val loginRepo: LoginRepo = LoginRepo()) : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val loginRepo: LoginRepo) : ViewModel() {
 
 
     private val _loginResponseFlow: MutableStateFlow<UiState<LoginResponse>?> = MutableStateFlow(null)

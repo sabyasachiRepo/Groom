@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.student.groom.R
@@ -63,7 +64,7 @@ fun ShowUIPageTwo(
      */
     var isFirstInteraction by rememberSaveable { mutableStateOf(true) }
 
-    val viewModel: SignupViewModel = viewModel()
+    val viewModel: SignupViewModel = hiltViewModel()
     val scrollState = rememberScrollState()
     val state: UiState<String>? by viewModel.singUpResponse.collectAsStateWithLifecycle()
     LaunchedEffect(state) {
