@@ -22,6 +22,7 @@ import edu.student.groom.ui.theme.GroomTheme
 import edu.student.groom.util.safeLet
 
 
+@AndroidEntryPoint
 class RegistrationActivity : ComponentActivity() {
 
 
