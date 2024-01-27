@@ -43,6 +43,7 @@ import timber.log.Timber
 
 @Composable
 fun LoginPage(
+    onRegisterClick: ()-> Unit,
     onLoginSuccess: () -> Unit
 ) {
     var emailState by rememberSaveable { mutableStateOf("") }
@@ -236,6 +237,7 @@ fun LoginPage(
                     .padding(top = 30.dp)
             ) {
                 AnnotatedClickableTextRegister() {
+                    onRegisterClick()
                 }
             }
 
@@ -252,7 +254,7 @@ fun LoginPage(
 fun DefaultPreviewLoginPage() {
 
     GroomTheme() {
-        LoginPage {
+        LoginPage({}) {
         }
     }
 }

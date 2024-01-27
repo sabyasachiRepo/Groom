@@ -21,6 +21,11 @@
             android:name=".onboarding.signup.ui.RegistrationActivity"
             android:exported="true"
             android:theme="@style/Theme.Groom">
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -44,7 +44,7 @@ fun MainScreen() {
         signUpScreen({ shouldClearBackStack -> navController.navigateToLogin(shouldClearBackStack) }) { eMail,fName, lName ->
             navController.navigateToSingUpScreenPageTwo(eMail,fName, lName)
         }
-        loginScreen {
+        loginScreen({}) {
             navController.navigateToHomeScreen()
         }
         homeScreen()
@@ -73,7 +73,7 @@ fun DefaultPreviewPageTwo() {
     val focusManager = LocalFocusManager.current
 
     GroomTheme() {
-        LoginPage {
+        LoginPage({}) {
         }
     }
 }
