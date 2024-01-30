@@ -11,6 +11,7 @@ import edu.student.groom.data.PreferenceDataStoreConstants.ACCESS_TOKEN
 import edu.student.groom.onboarding.login.model.LoginRepo
 import edu.student.groom.onboarding.login.model.LoginRequest
 import edu.student.groom.onboarding.login.model.LoginResponse
+import edu.student.groom.util.AccessTokenManager
 import edu.student.groom.util.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val loginRepo: LoginRepo) : ViewModel() {
 
     @Inject
-    lateinit var preferenceDataStoreHelper: GroomPreferenceHelper
+    lateinit var accessTokenManager: AccessTokenManager
 
     private val _loginResponseFlow: MutableStateFlow<UiState<LoginResponse>?> = MutableStateFlow(null)
 
@@ -39,13 +40,10 @@ class LoginViewModel @Inject constructor(private val loginRepo: LoginRepo) : Vie
         _loginResponseFlow.value=UiState.Loading
         viewModelScope.launch {
             loginRepo.logIn(LoginRequest(userName, password))
-                .onStart {
-
-                }
                 .catch { e ->
                     _loginResponseFlow.value = UiState.Error(e.message ?: "Api call failed")
                 }.collect { response ->
-                    preferenceDataStoreHelper.putPreference(ACCESS_TOKEN, response.access_token)
+                    accessTokenManager.saveAccessToken(response.access_token)
                     _loginResponseFlow.value = UiState.Success(response)
                 }
         }

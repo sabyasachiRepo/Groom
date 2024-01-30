@@ -8,6 +8,7 @@ import edu.student.groom.data.PreferenceDataStoreConstants.ACCESS_TOKEN
 import edu.student.groom.home.homeScreenRoute
 import edu.student.groom.onboarding.login.ui.navigation.loginRoute
 import edu.student.groom.onboarding.signup.model.SingUpRepo
+import edu.student.groom.util.AccessTokenManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,11 +22,11 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : ViewModel() {
 
     @Inject
-    lateinit var preferenceDataStoreHelper: GroomPreferenceHelper
+    lateinit var accessTokenManager: AccessTokenManager
 
 
     val uiState: StateFlow<MainActivityUiState> = flow<MainActivityUiState>{
-       val accessToken= preferenceDataStoreHelper.getPreference(ACCESS_TOKEN,"").first()
+       val accessToken= accessTokenManager.getAccessToken()
         if(accessToken.isEmpty()){
             emit(MainActivityUiState.Success(loginRoute))
         }else{

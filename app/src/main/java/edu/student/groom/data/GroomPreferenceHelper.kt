@@ -20,7 +20,7 @@ private val Context.dataStore by preferencesDataStore(
 )
 
 
-class GroomPreferenceHelper  @Inject constructor( @ApplicationContext private val context: Context): GroomPreferenceDataStoreAPI {
+class GroomPreferenceHelper(context: Context): GroomPreferenceDataStoreAPI {
     // dataSource access the DataStore file and does the manipulation based on our requirements.
     private val dataSource = context.dataStore
 

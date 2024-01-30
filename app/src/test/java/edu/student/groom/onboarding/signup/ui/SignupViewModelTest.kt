@@ -49,7 +49,7 @@ class SignupViewModelTest {
             signUpRepo.getInstitutes()
         } returns instituteResponse
         signupViewModel = SignupViewModel(signUpRepo)
-        signupViewModel.singUpResponse.observeForever(observer)
+      //  signupViewModel.singUpResponse.observeForever(observer)
 
         Dispatchers.setMain(dispatcher)
         every { observer.onChanged(any()) } answers {}
