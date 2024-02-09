@@ -8,8 +8,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import edu.student.groom.data.DefaultLoginRepo
 import edu.student.groom.data.DefaultUserRepo
-import edu.student.groom.data.GroomPreferenceDataStoreAPI
-import edu.student.groom.data.GroomPreferenceHelper
+import edu.student.groom.data.GroomLocalDataSource
+import edu.student.groom.data.GroomPreferenceDataSource
 import edu.student.groom.data.LoginRepo
 import edu.student.groom.data.UserRepo
 import edu.student.groom.onboarding.login.model.service.LoginService
@@ -24,8 +24,8 @@ class DataModule {
     fun provideGroomDataStore(
         @ApplicationContext context: Context
         // Potential dependencies of this type
-    ): GroomPreferenceDataStoreAPI {
-        return GroomPreferenceHelper(context)
+    ): GroomLocalDataSource {
+        return GroomPreferenceDataSource(context)
     }
 
     @Singleton
