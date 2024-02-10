@@ -7,11 +7,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import edu.student.groom.data.DefaultLoginRepo
-import edu.student.groom.data.DefaultUserRepo
+import edu.student.groom.data.DefaultUserDataRepo
 import edu.student.groom.data.GroomLocalDataSource
 import edu.student.groom.data.GroomPreferenceDataSource
 import edu.student.groom.data.LoginRepo
-import edu.student.groom.data.UserRepo
+import edu.student.groom.data.UserDataRepo
 import edu.student.groom.onboarding.login.model.service.LoginService
 import edu.student.groom.util.AccessTokenManager
 import javax.inject.Singleton
@@ -30,6 +30,16 @@ class DataModule {
 
     @Singleton
     @Provides
+    fun provideAccessTokenManager(
+        @ApplicationContext context: Context,
+        groomLocalDataSource: GroomLocalDataSource
+        // Potential dependencies of this type
+    ): AccessTokenManager {
+        return AccessTokenManager(groomLocalDataSource)
+    }
+
+    @Singleton
+    @Provides
     fun provideLoginRepo(loginService: LoginService
     ): LoginRepo {
         return DefaultLoginRepo(loginService)
@@ -38,7 +48,7 @@ class DataModule {
     @Singleton
     @Provides
     fun provideUserRepo(accessTokenManager: AccessTokenManager
-    ): UserRepo {
-        return DefaultUserRepo(accessTokenManager)
+    ): UserDataRepo {
+        return DefaultUserDataRepo(accessTokenManager)
     }
 }

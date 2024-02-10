@@ -31,7 +31,7 @@ class LoginService @Inject constructor(){
     interface LoginApi {
 
         @POST("onboarding/login")
-        suspend fun login(@Body loginRequest: LoginRequest):LoginResponse
+        suspend fun login(@Body loginRequest: LoginRequest):Response<LoginResponse>
     }
 
 

@@ -3,29 +3,35 @@ package edu.student.groom
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import edu.student.groom.data.UserDataRepo
 import edu.student.groom.home.homeScreenRoute
 import edu.student.groom.onboarding.login.ui.navigation.loginRoute
 import edu.student.groom.util.AccessTokenManager
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(userDataRepo: UserDataRepo) : ViewModel() {
 
-    @Inject
-    lateinit var accessTokenManager: AccessTokenManager
-
+    init {
+        Timber.tag(MainViewModel::class.java.name)
+    }
 
     val uiState: StateFlow<MainActivityUiState> = flow<MainActivityUiState>{
-       val accessToken= accessTokenManager.getAccessToken()
-        if(accessToken.isEmpty()){
-            emit(MainActivityUiState.Success(loginRoute))
-        }else{
-            emit(MainActivityUiState.Success(homeScreenRoute))
-        }
+        userDataRepo.getUserToken().collect{
+           if(it.isEmpty()){
+               Timber.d("user access token is empty")
+               emit(MainActivityUiState.Success(loginRoute))
+           }else{
+               emit(MainActivityUiState.Success(homeScreenRoute))
+           }
+       }
+
 
     }.stateIn(
         scope = viewModelScope,

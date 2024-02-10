@@ -5,29 +5,23 @@ import edu.student.groom.data.PreferenceDataStoreConstants.ACCESS_TOKEN
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
-class AccessTokenManager @Inject constructor(private val groomLocalDataSource: GroomLocalDataSource) {
+class AccessTokenManager(private val groomLocalDataSource: GroomLocalDataSource) {
 
-    private var currentToken: String = ""
-    private val accessTokenJob = Job()
-    private val accessTokenScope = CoroutineScope(Dispatchers.IO + accessTokenJob)
-    init {
-        accessTokenScope.launch(Dispatchers.IO) {
-            groomLocalDataSource.getPreference(ACCESS_TOKEN,"")
-                .collect { token -> currentToken = token }
-        }
-
-    }
-
-    fun getAccessToken(): String {
-        return currentToken
+    suspend fun getAccessToken(): Flow<String> {
+        return  groomLocalDataSource.getPreference(ACCESS_TOKEN,"")
     }
 
     suspend fun saveAccessToken(token: String) {
         groomLocalDataSource.putPreference(ACCESS_TOKEN,token)
-        currentToken = token  // Update the cached token
+    }
+
+    suspend fun clearAccessToken() {
+        groomLocalDataSource.removePreference(ACCESS_TOKEN)
     }
 }
