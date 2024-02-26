@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface LoginRepo {
-    fun logIn(loginRequest: LoginRequest): Flow<Response<LoginResponse>>
+    suspend fun logIn(loginRequest: LoginRequest): Response<LoginResponse>
 }

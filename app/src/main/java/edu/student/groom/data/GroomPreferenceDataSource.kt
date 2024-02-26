@@ -63,8 +63,3 @@ class GroomPreferenceDataSource(context: Context): GroomLocalDataSource {
         }
     }
 }
-
-object PreferenceDataStoreConstants {
-    val ACCESS_TOKEN = stringPreferencesKey("access_token")
-
-}

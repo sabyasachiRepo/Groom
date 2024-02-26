@@ -44,7 +44,7 @@ fun ShowUIPageOne(
     onLoginLinkClick: () -> Unit,
     continueClick: (email: String, firstname: String, lastName: String) -> Unit
 ) {
-    var emailState by rememberSaveable { mutableStateOf("") }
+    var emailState by remember { mutableStateOf("") }
     var firstNameState by rememberSaveable { mutableStateOf("") }
     var lastNameState by rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current

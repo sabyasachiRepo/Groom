@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 class DefaultLoginRepo (private val loginService: LoginService): LoginRepo {
 
-    override fun logIn(loginRequest: LoginRequest): Flow<Response<LoginResponse>> = flow {
-        emit(loginService.loginApi.login(loginRequest))
-    }.flowOn(Dispatchers.IO)
+    override suspend fun logIn(loginRequest: LoginRequest):Response<LoginResponse>{
+       return loginService.loginApi.login(loginRequest)
+    }
 }

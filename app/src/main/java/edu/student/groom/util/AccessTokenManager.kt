@@ -1,7 +1,8 @@
 package edu.student.groom.util
 
+import androidx.datastore.preferences.core.stringPreferencesKey
 import edu.student.groom.data.GroomLocalDataSource
-import edu.student.groom.data.PreferenceDataStoreConstants.ACCESS_TOKEN
+import edu.student.groom.util.PreferenceDataStoreConstants.ACCESS_TOKEN
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,6 +13,7 @@ import javax.inject.Inject
 
 
 class AccessTokenManager(private val groomLocalDataSource: GroomLocalDataSource) {
+
 
     suspend fun getAccessToken(): Flow<String> {
         return  groomLocalDataSource.getPreference(ACCESS_TOKEN,"")
@@ -24,4 +26,10 @@ class AccessTokenManager(private val groomLocalDataSource: GroomLocalDataSource)
     suspend fun clearAccessToken() {
         groomLocalDataSource.removePreference(ACCESS_TOKEN)
     }
+}
+
+
+object PreferenceDataStoreConstants {
+    val ACCESS_TOKEN = stringPreferencesKey("access_token")
+
 }

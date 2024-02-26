@@ -46,15 +46,15 @@ fun LoginPage(
     onRegisterClick: ()-> Unit,
     onLoginSuccess: () -> Unit
 ) {
-    var emailState by rememberSaveable { mutableStateOf("") }
-    var passwordState by rememberSaveable { mutableStateOf("") }
+    var emailState by remember { mutableStateOf("") }
+    var passwordState by remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
 
-    var isEmailError by rememberSaveable { mutableStateOf(false) }
-    var isPasswordError by rememberSaveable { mutableStateOf(false) }
-    var isInProgress by rememberSaveable { mutableStateOf(false) }
-    var openDialog by rememberSaveable { mutableStateOf(false) }
-    var errorMessage by rememberSaveable { mutableStateOf("") }
+    var isEmailError by remember { mutableStateOf(false) }
+    var isPasswordError by remember { mutableStateOf(false) }
+    var isInProgress by remember { mutableStateOf(false) }
+    var openDialog by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
     val viewModel: LoginViewModel = hiltViewModel()
 
     val uiState by viewModel.loginResponseFlow.collectAsStateWithLifecycle()
@@ -87,7 +87,7 @@ fun LoginPage(
        Flag to restrict the dynamic validation logic when user starts typing works immediately
        It should work only work after the user click the CTA button for once.
      */
-    var isFirstInteraction by rememberSaveable { mutableStateOf(true) }
+    var isFirstInteraction by remember { mutableStateOf(true) }
 
     fun validateEmail(): Boolean {
         if (isFirstInteraction) {
