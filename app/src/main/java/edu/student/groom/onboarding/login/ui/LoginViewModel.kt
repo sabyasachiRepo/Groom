@@ -36,7 +36,7 @@ class LoginViewModel @Inject constructor(
         _loginResponseFlow.value = UiState.Loading
         viewModelScope.launch {
             try {
-              val response =  loginRepo.logIn(LoginRequest(userName, password))
+                val response = loginRepo.logIn(LoginRequest(userName, password))
                 if (response.isSuccessful) {
                     response.body()?.let {
                         userDataRepo.saveUserToken(it.access_token)
@@ -46,9 +46,10 @@ class LoginViewModel @Inject constructor(
                     _loginResponseFlow.value =
                         UiState.Error(response.getErrorMessage() ?: "Api call failed")
                 }
-            }catch (e:Exception){
-                if(e.isNetworkError())
-                    _loginResponseFlow.value = UiState.Error("Please check if the device have network connectivity and try again") else{
+            } catch (e: Exception) {
+                if (e.isNetworkError())
+                    _loginResponseFlow.value =
+                        UiState.Error("Please check if the device have network connectivity and try again") else {
                     UiState.Error("API error").also { _loginResponseFlow.value = it }
                 }
             }
